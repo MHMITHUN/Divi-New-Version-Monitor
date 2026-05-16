@@ -1,0 +1,56 @@
+name: 🔍 Divi Version Monitor
+
+on:
+  schedule:
+    - cron: "*/30 * * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  check:
+    name: Check for New Divi Version
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: 📥 Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: 🐍 Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: "pip"
+
+      - name: 📦 Install Packages
+        run: pip install -r requirements.txt
+
+      - name: 🚀 Run Script
+        id: monitor
+        env:
+          TG_TOKEN:      ${{ secrets.TG_TOKEN }}
+          TG_CHAT:       ${{ secrets.TG_CHAT }}
+          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
+          RSS_URL:       "https://www.divichangelog.com/feed"
+        run: python check.py
+
+      - name: 💾 Commit Version File
+        run: |
+          git config user.name  "Divi Monitor Bot"
+          git config user.email "divi-monitor@github-actions.noreply"
+
+          git add latest.txt
+
+          if git diff --cached --quiet; then
+            echo "ℹ️  No version change — nothing to commit"
+          else
+            CURRENT=$(cat latest.txt)
+            git commit -m "🆕 update: Divi ${CURRENT} detected [skip ci]"
+            git push
+            echo "✅ Committed and pushed: ${CURRENT}"
+          fi
