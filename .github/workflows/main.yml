@@ -2,7 +2,7 @@ name: 🔍 Divi Version Monitor
 
 on:
   schedule:
-    - cron: "*/20 * * * *"
+    - cron: "*/30 * * * *"
   workflow_dispatch:
 
 permissions:
