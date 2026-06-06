@@ -1,1 +1,1 @@
-Version 5.7.0
+New Gradient Editor, Gradient Variables, Text Effects and More
