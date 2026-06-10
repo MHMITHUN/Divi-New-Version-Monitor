@@ -1,1 +1,1 @@
-Version 5.7.2
+Divi 5.7 Release Notes
