@@ -1,1 +1,1 @@
-Version 5.7.4
+Introducing Workspaces for Divi 5
