@@ -1,1 +1,1 @@
-Exploring Divi 5’s New Contact Form 7 Module
+Version 5.8.1
