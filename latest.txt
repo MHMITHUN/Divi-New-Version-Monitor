@@ -1,1 +1,1 @@
-Creating A Fluid Responsive Sizing System With Divi 5’s Variable Generator
+Version 5.8.1
