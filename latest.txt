@@ -1,1 +1,1 @@
-How To Create Vertical Text Layouts With Divi 5’s Text Direction Settings
+Version 5.9.0
